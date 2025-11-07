@@ -305,9 +305,17 @@
                       slideDirection === 'inFromLeft' ? 'animate-slideInFromLeft' : ''
                     }`}>
                       <div className="p-16">
-                        <div className={`h-64 bg-gradient-to-br ${projects[currentProject].gradient} rounded-xl mb-8 shadow-lg flex items-center justify-center relative overflow-hidden`}>
+                        <div 
+                          className={`h-64 bg-gradient-to-br ${projects[currentProject].gradient} rounded-xl mb-8 shadow-lg flex items-center justify-center relative overflow-hidden ${projects[currentProject].url ? 'cursor-pointer hover:scale-105 transition-transform duration-300' : ''}`}
+                          onClick={() => projects[currentProject].url && window.open(projects[currentProject].url, '_blank')}
+                        >
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
                           <ExternalLink className="w-16 h-16 text-white/80" />
+                          {projects[currentProject].url && (
+                            <div className="absolute bottom-4 right-4 text-white/90 text-sm font-light tracking-wide">
+                              View Project →
+                            </div>
+                          )}
                         </div>
                         
                         <h3 className="text-4xl font-light text-slate-800 mb-4 tracking-tight">
