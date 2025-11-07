@@ -53,7 +53,8 @@
           description: "Real-time AI Explanations for self-driving cars",
           tags: ["Artifical Intelligence", "Python", "HTML", "CSS", "React"],
           gradient: "from-slate-400 to-zinc-300",
-          url: "https://chefbaker4.github.io/AV-Saliency-Explainer/"
+          url: "https://chefbaker4.github.io/AV-Saliency-Explainer/",
+          image: "images/xai.png"
         },
         {
           title: "Pod Insights Platform",
@@ -309,10 +310,17 @@
                           className={`h-64 bg-gradient-to-br ${projects[currentProject].gradient} rounded-xl mb-8 shadow-lg flex items-center justify-center relative overflow-hidden ${projects[currentProject].url ? 'cursor-pointer hover:scale-105 transition-transform duration-300' : ''}`}
                           onClick={() => projects[currentProject].url && window.open(projects[currentProject].url, '_blank')}
                         >
+                          {projects[currentProject].image && (
+                            <img 
+                              src={projects[currentProject].image} 
+                              alt={projects[currentProject].title}
+                              className="absolute inset-0 w-full h-full object-cover"
+                            />
+                          )}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
-                          <ExternalLink className="w-16 h-16 text-white/80" />
+                          <ExternalLink className="w-16 h-16 text-white/80 relative z-10 drop-shadow-lg" />
                           {projects[currentProject].url && (
-                            <div className="absolute bottom-4 right-4 text-white/90 text-sm font-light tracking-wide">
+                            <div className="absolute bottom-4 right-4 text-white/90 text-sm font-light tracking-wide drop-shadow-lg z-10">
                               View Project →
                             </div>
                           )}
