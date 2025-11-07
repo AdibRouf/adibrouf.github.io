@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adib Rouf - Portfolio</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    const { ChevronLeft, ChevronRight, ExternalLink, Power } = lucideReact;
+    
+    function Portfolio() {
+      const [initiated, setInitiated] = React.useState(false);
+      const [circuitExpanding, setCircuitExpanding] = React.useState(false);
+      const [stageDrop, setStageDrop] = React.useState(false);
+      const [typedText, setTypedText] = React.useState('');
+      const [currentProject, setCurrentProject] = React.useState(0);
+      const [slideDirection, setSlideDirection] = React.useState('');
+      const fullText = "Welcome. I'm Adib Rouf, a creator building tomorrow's solutions.";
+      
+      const projects = [
+        {
+          title: "Urban Analytics Platform",
+          description: "Real-time data visualization for smart city infrastructure",
+          tags: ["Data Science", "IoT", "React"],
+          gradient: "from-slate-400 to-zinc-300"
+        },
+        {
+          title: "FinTech Innovation Suite",
+          description: "Next-generation financial tools for modern investors",
+          tags: ["Blockchain", "ML", "Cloud"],
+          gradient: "from-zinc-300 to-slate-400"
+        },
+        {
+          title: "AI-Powered Design Studio",
+          description: "Automated creative workflows for enterprise clients",
+          tags: ["AI/ML", "Design", "Automation"],
+          gradient: "from-slate-300 to-gray-400"
+        },
+        {
+          title: "Global Commerce Engine",
+          description: "Scalable e-commerce infrastructure serving millions",
+          tags: ["Backend", "Distributed Systems", "API"],
+          gradient: "from-gray-400 to-zinc-300"
+        }
+      ];
+
+      React.useEffect(() => {
+        if (initiated && typedText.length < fullText.length) {
+          const timeout = setTimeout(() => {
+            setTypedText(fullText.slice(0, typedText.length + 1));
+          }, 80);
+          return () => clearTimeout(timeout);
+        }
+      }, [typedText, initiated]);
+
+      const handleInitiate = () => {
+        setCircuitExpanding(true);
+        setTimeout(() => {
+          setStageDrop(true);
+        }, 1800);
+        setTimeout(() => {
+          setInitiated(true);
+        }, 2800);
+      };
+
+      const nextProject = () => {
+        setSlideDirection('left');
+        setTimeout(() => {
+          setCurrentProject((prev) => (prev + 1) % projects.length);
+          setSlideDirection('in');
+        }, 600);
+      };
+
+      const prevProject = () => {
+        setSlideDirection('right');
+        setTimeout(() => {
+          setCurrentProject((prev) => (prev - 1 + projects.length) % projects.length);
+          setSlideDirection('inFromLeft');
+        }, 600);
+      };
+
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-gray-50 via-slate-100 to-zinc-100">
+          <style>{`
+            @keyframes expand {
+              to {
+                width: 200vw;
+                height: 200vw;
+                margin-left: -100vw;
+                margin-top: -100vw;
+                opacity: 0;
+              }
+            }
+
+            @keyframes stageDrop {
+              0% {
+                transform: translateY(-100%);
+              }
+              100% {
+                transform: translateY(0%);
+              }
+            }
+            
+            @keyframes slideOutLeft {
+              0% {
+                transform: translateX(0) rotateY(0deg) scale(1);
+                opacity: 1;
+              }
+              100% {
+                transform: translateX(-120%) rotateY(-15deg) scale(0.8);
+                opacity: 0;
+              }
+            }
+
+            @keyframes slideOutRight {
+              0% {
+                transform: translateX(0) rotateY(0deg) scale(1);
+                opacity: 1;
+              }
+              100% {
+                transform: translateX(120%) rotateY(15deg) scale(0.8);
+                opacity: 0;
+              }
+            }
+
+            @keyframes slideIn {
+              0% {
+                transform: translateX(120%) rotateY(15deg) scale(0.8);
+                opacity: 0;
+              }
+              100% {
+                transform: translateX(0) rotateY(0deg) scale(1);
+                opacity: 1;
+              }
+            }
+
+            @keyframes slideInFromLeft {
+              0% {
+                transform: translateX(-120%) rotateY(-15deg) scale(0.8);
+                opacity: 0;
+              }
+              100% {
+                transform: translateX(0) rotateY(0deg) scale(1);
+                opacity: 1;
+              }
+            }
+
+            .animate-stageDrop {
+              animation: stageDrop 1s ease-in-out forwards;
+            }
+
+            .animate-slideOutLeft {
+              animation: slideOutLeft 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            }
+
+            .animate-slideOutRight {
+              animation: slideOutRight 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+            }
+
+            .animate-slideIn {
+              animation: slideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            }
+
+            .animate-slideInFromLeft {
+              animation: slideInFromLeft 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            }
+          `}</style>
+
+          {!initiated && (
+            <div className="fixed inset-0 bg-gradient-to-br from-gray-50 via-slate-100 to-zinc-100 z-50 flex items-center justify-center overflow-hidden">
+              {stageDrop && (
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-50 via-slate-100 to-zinc-100 z-50 animate-stageDrop shadow-2xl"></div>
+              )}
+
+              <div className="absolute inset-0 opacity-10">
+                {[...Array(20)].map((_, i) => (
+                  <div
+                    key={i}
+                    className="absolute bg-slate-400"
+                    style={{
+                      width: Math.random() > 0.5 ? '2px' : `${Math.random() * 200}px`,
+                      height: Math.random() > 0.5 ? `${Math.random() * 200}px` : '2px',
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                      animation: `pulse ${2 + Math.random() * 3}s infinite`
+                    }}
+                  />
+                ))}
+              </div>
+
+              {circuitExpanding && (
+                <div className="absolute inset-0">
+                  {[...Array(8)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute top-1/2 left-1/2 border-2 border-slate-300 rounded-full"
+                      style={{
+                        animation: `expand 2s ease-out forwards`,
+                        animationDelay: `${i * 0.1}s`,
+                        width: '20px',
+                        height: '20px',
+                        marginLeft: '-10px',
+                        marginTop: '-10px'
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {!circuitExpanding && (
+                <button
+                  onClick={handleInitiate}
+                  className="relative group"
+                >
+                  <div className="absolute inset-0 bg-slate-300 rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition-all duration-500 animate-pulse"></div>
+                  <div className="relative bg-white/90 backdrop-blur-sm border-2 border-slate-300 rounded-full p-10 group-hover:bg-white group-hover:border-slate-400 transition-all duration-500 hover:scale-110 shadow-2xl">
+                    <Power className="w-16 h-16 text-slate-600 group-hover:text-slate-800 transition-colors duration-500" />
+                  </div>
+                  <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 whitespace-nowrap text-slate-600 font-light tracking-widest text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    INITIALIZE SYSTEM
+                  </div>
+                </button>
+              )}
+            </div>
+          )}
+
+          {initiated && (
+            <>
+              <section className="h-screen flex items-center justify-center relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/60 via-slate-100/40 to-transparent"></div>
+                <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-radial from-slate-200/30 to-transparent rounded-full blur-3xl"></div>
+                <div className="absolute bottom-20 left-20 w-96 h-96 bg-gradient-radial from-zinc-200/30 to-transparent rounded-full blur-3xl"></div>
+                
+                <div className="relative z-10 text-center px-4 max-w-4xl">
+                  <h1 className="text-7xl font-light mb-8 text-slate-800 tracking-tight">
+                    {typedText}
+                    <span className="inline-block w-1 h-16 bg-slate-400 ml-1 animate-pulse"></span>
+                  </h1>
+                  <div className="w-32 h-1 bg-gradient-to-r from-transparent via-slate-400 to-transparent mx-auto mb-8"></div>
+                  <p className="text-xl text-slate-600 font-light tracking-wide mb-12">
+                    Innovation • Design • Excellence
+                  </p>
+                  
+                  <div className="flex flex-col items-center gap-2 animate-bounce">
+                    <p className="text-sm text-slate-500 font-light tracking-wide">Scroll to explore</p>
+                    <svg 
+                      className="w-6 h-6 text-slate-400" 
+                      fill="none" 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth="2" 
+                      viewBox="0 0 24 24" 
+                      stroke="currentColor"
+                    >
+                      <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                  </div>
+                </div>
+              </section>
+
+              <section className="min-h-screen flex items-center justify-center py-20 px-4 relative">
+                <div className="absolute inset-0 bg-gradient-to-t from-white/80 to-transparent"></div>
+                
+                <div className="relative z-10 max-w-6xl w-full">
+                  <h2 className="text-5xl font-light text-slate-800 mb-16 text-center tracking-tight">
+                    Featured Work
+                  </h2>
+                  
+                  <div className="relative overflow-hidden" style={{ perspective: '1000px' }}>
+                    <div className={`bg-white/70 backdrop-blur-sm rounded-2xl shadow-2xl overflow-hidden border border-slate-200/50 transition-all duration-300 ${
+                      slideDirection === 'left' ? 'animate-slideOutLeft' : 
+                      slideDirection === 'right' ? 'animate-slideOutRight' : 
+                      slideDirection === 'in' ? 'animate-slideIn' :
+                      slideDirection === 'inFromLeft' ? 'animate-slideInFromLeft' : ''
+                    }`}>
+                      <div className="p-16">
+                        <div className={`h-64 bg-gradient-to-br ${projects[currentProject].gradient} rounded-xl mb-8 shadow-lg flex items-center justify-center relative overflow-hidden`}>
+                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-pulse"></div>
+                          <ExternalLink className="w-16 h-16 text-white/80" />
+                        </div>
+                        
+                        <h3 className="text-4xl font-light text-slate-800 mb-4 tracking-tight">
+                          {projects[currentProject].title}
+                        </h3>
+                        
+                        <p className="text-xl text-slate-600 mb-6 font-light leading-relaxed">
+                          {projects[currentProject].description}
+                        </p>
+                        
+                        <div className="flex gap-3 flex-wrap">
+                          {projects[currentProject].tags.map((tag, idx) => (
+                            <span 
+                              key={idx}
+                              className="px-4 py-2 bg-slate-100 text-slate-700 rounded-full text-sm font-light border border-slate-200"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between px-16 pb-8">
+                        <button
+                          onClick={prevProject}
+                          className="p-3 rounded-full bg-slate-100 hover:bg-slate-200 transition-all duration-300 border border-slate-200 hover:shadow-lg"
+                        >
+                          <ChevronLeft className="w-6 h-6 text-slate-700" />
+                        </button>
+                        
+                        <div className="flex gap-2">
+                          {projects.map((_, idx) => (
+                            <button
+                              key={idx}
+                              onClick={() => {
+                                if (idx !== currentProject) {
+                                  setSlideDirection(idx > currentProject ? 'left' : 'right');
+                                  setTimeout(() => {
+                                    setCurrentProject(idx);
+                                    setSlideDirection(idx > currentProject ? 'in' : 'inFromLeft');
+                                  }, 600);
+                                }
+                              }}
+                              className={`h-2 rounded-full transition-all duration-300 ${
+                                idx === currentProject 
+                                  ? 'w-12 bg-slate-400' 
+                                  : 'w-2 bg-slate-300 hover:bg-slate-400'
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        
+                        <button
+                          onClick={nextProject}
+                          className="p-3 rounded-full bg-slate-100 hover:bg-slate-200 transition-all duration-300 border border-slate-200 hover:shadow-lg"
+                        >
+                          <ChevronRight className="w-6 h-6 text-slate-700" />
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div className="text-center mt-8 text-slate-500 font-light tracking-wider">
+                      {String(currentProject + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </>
+          )}
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<Portfolio />);
+  </script>
+</body>
+</html>
