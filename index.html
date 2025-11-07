@@ -8,13 +8,35 @@
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide-react@0.263.1/dist/umd/lucide-react.js"></script>
 </head>
 <body>
   <div id="root"></div>
   
   <script type="text/babel">
-    const { ChevronLeft, ChevronRight, ExternalLink, Power } = lucideReact;
+    // Icon components (replacing lucide-react)
+    const ChevronLeft = ({ className }) => (
+      <svg className={className} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+        <path d="M15 19l-7-7 7-7"></path>
+      </svg>
+    );
+    
+    const ChevronRight = ({ className }) => (
+      <svg className={className} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+        <path d="M9 5l7 7-7 7"></path>
+      </svg>
+    );
+    
+    const ExternalLink = ({ className }) => (
+      <svg className={className} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"></path>
+      </svg>
+    );
+    
+    const Power = ({ className }) => (
+      <svg className={className} fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" viewBox="0 0 24 24" stroke="currentColor">
+        <path d="M18.36 6.64a9 9 0 11-12.73 0M12 2v10"></path>
+      </svg>
+    );
     
     function Portfolio() {
       const [initiated, setInitiated] = React.useState(false);
