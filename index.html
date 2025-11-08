@@ -92,10 +92,10 @@
 
       // Initialize audio elements once
       React.useEffect(() => {
-        // hover: looped, start muted
-        hoverAudioRef.current = new Audio('mp3s/hover.mp3');
-        hoverAudioRef.current.loop = true;
-        hoverAudioRef.current.volume = 0.4;
+  // hover: looped, start at 0 volume
+  hoverAudioRef.current = new Audio('mp3s/hover.mp3');
+  hoverAudioRef.current.loop = true;
+  hoverAudioRef.current.volume = 0;
 
         // power-on: single play
         powerAudioRef.current = new Audio('mp3s/poweron.mp3');
