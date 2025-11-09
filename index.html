@@ -52,6 +52,8 @@
       const powerAudioRef = React.useRef(null);
       const hoverFadeIntervalRef = React.useRef(null);
       const powerFadeIntervalRef = React.useRef(null);
+      const typingAudioRef = React.useRef(null);
+      const typingFadeIntervalRef = React.useRef(null);
       
       const fullText = "Hi! I'm Adib Rouf, a student developing the tools of tomorrow.";
       
@@ -93,10 +95,19 @@
 
       React.useEffect(() => {
         if (initiated && typedText.length < fullText.length) {
+          // ensure typing audio is playing when typing starts
+          if (typedText.length === 0) startTypingAudio();
           const timeout = setTimeout(() => {
             setTypedText(fullText.slice(0, typedText.length + 1));
           }, 80);
           return () => clearTimeout(timeout);
+        }
+      }, [typedText, initiated]);
+
+      // Stop/fade typing audio when typing finishes
+      React.useEffect(() => {
+        if (initiated && typedText.length >= fullText.length) {
+          stopTypingAudio();
         }
       }, [typedText, initiated]);
 
@@ -122,12 +133,19 @@
         powerAudioRef.current.loop = false;
         powerAudioRef.current.volume = 1.0;
 
+        // typing: looped, start muted
+        typingAudioRef.current = new Audio('mp3s/typing.mp3');
+        typingAudioRef.current.loop = true;
+        typingAudioRef.current.volume = 0;
+
         return () => {
           try {
             if (hoverFadeIntervalRef.current) clearInterval(hoverFadeIntervalRef.current);
             if (powerFadeIntervalRef.current) clearInterval(powerFadeIntervalRef.current);
+            if (typingFadeIntervalRef.current) clearInterval(typingFadeIntervalRef.current);
             if (hoverAudioRef.current) { hoverAudioRef.current.pause(); hoverAudioRef.current = null; }
             if (powerAudioRef.current) { powerAudioRef.current.pause(); powerAudioRef.current = null; }
+            if (typingAudioRef.current) { typingAudioRef.current.pause(); typingAudioRef.current = null; }
           } catch (e) { /* ignore cleanup errors */ }
         };
       }, []);
@@ -171,6 +189,23 @@
         if (!a) return;
         // fade out to 0 over 400ms then pause/reset
         fadeAudio(a, 0, 400, hoverFadeIntervalRef, () => {
+          try { a.pause(); a.currentTime = 0; } catch (e) {}
+        });
+      };
+
+      // Typing audio control
+      const startTypingAudio = () => {
+        const a = typingAudioRef.current;
+        if (!a) return;
+        try { a.currentTime = 0; a.play().catch(() => {}); } catch (e) {}
+        // fade in to ~30% over 300ms
+        fadeAudio(a, 0.3, 300, typingFadeIntervalRef);
+      };
+
+      const stopTypingAudio = () => {
+        const a = typingAudioRef.current;
+        if (!a) return;
+        fadeAudio(a, 0, 300, typingFadeIntervalRef, () => {
           try { a.pause(); a.currentTime = 0; } catch (e) {}
         });
       };
@@ -423,13 +458,13 @@
                         About Me
                       </h3>
                       <p className="text-lg text-slate-600 font-light leading-relaxed mb-4">
-                        I'm passionate about leveraging artificial intelligence and machine learning to solve complex problems and uncover meaningful insights from data. My work focuses on developing intelligent systems that can learn, adapt, and make informed decisions.
+                        I'm a Computer Science student at the University of Connecticut specializing in Artificial Intelligence, with a passion for building intelligent systems that transform raw data into actionable insights. My work spans full-stack development, machine learning workflows, and data engineering—always with a focus on creating scalable, efficient solutions.
                       </p>
                       <p className="text-lg text-slate-600 font-light leading-relaxed mb-4">
-                        With a keen eye for patterns and trends, I specialize in data analysis and predictive modeling. I believe that data tells a story, and my goal is to extract actionable intelligence that drives innovation and creates real-world impact.
+                        Currently, I'm working as an Undergraduate Research Intern where I architect full-stack applications that streamline language model development. From designing React interfaces to optimizing data pipelines with UConn's High-Performance Computing units, I thrive at the intersection of AI, data processing, and user-centric design.
                       </p>
                       <p className="text-lg text-slate-600 font-light leading-relaxed">
-                        From building explainable AI systems for autonomous vehicles to creating data aggregation platforms, I'm committed to pushing the boundaries of what's possible at the intersection of technology and intelligence.
+                        Whether I'm automating the processing of thousands of XML documents, building explainable AI systems for autonomous vehicles, or engineering prompts to revolutionize content production workflows—I'm driven by the challenge of uncovering patterns in data and turning complex problems into elegant, automated solutions.
                       </p>
                     </div>
                   </div>
