@@ -52,8 +52,6 @@
       const powerAudioRef = React.useRef(null);
       const hoverFadeIntervalRef = React.useRef(null);
       const powerFadeIntervalRef = React.useRef(null);
-      const typingAudioRef = React.useRef(null);
-      const typingFadeIntervalRef = React.useRef(null);
       
       const fullText = "Hi! I'm Adib Rouf, a student developing the tools of tomorrow.";
       
@@ -95,19 +93,10 @@
 
       React.useEffect(() => {
         if (initiated && typedText.length < fullText.length) {
-          // ensure typing audio is playing when typing starts
-          if (typedText.length === 0) startTypingAudio();
           const timeout = setTimeout(() => {
             setTypedText(fullText.slice(0, typedText.length + 1));
           }, 80);
           return () => clearTimeout(timeout);
-        }
-      }, [typedText, initiated]);
-
-      // Stop/fade typing audio when typing finishes
-      React.useEffect(() => {
-        if (initiated && typedText.length >= fullText.length) {
-          stopTypingAudio();
         }
       }, [typedText, initiated]);
 
@@ -133,19 +122,12 @@
         powerAudioRef.current.loop = false;
         powerAudioRef.current.volume = 1.0;
 
-        // typing: looped, start muted
-        typingAudioRef.current = new Audio('mp3s/typing.mp3');
-        typingAudioRef.current.loop = true;
-        typingAudioRef.current.volume = 0;
-
         return () => {
           try {
             if (hoverFadeIntervalRef.current) clearInterval(hoverFadeIntervalRef.current);
             if (powerFadeIntervalRef.current) clearInterval(powerFadeIntervalRef.current);
-            if (typingFadeIntervalRef.current) clearInterval(typingFadeIntervalRef.current);
             if (hoverAudioRef.current) { hoverAudioRef.current.pause(); hoverAudioRef.current = null; }
             if (powerAudioRef.current) { powerAudioRef.current.pause(); powerAudioRef.current = null; }
-            if (typingAudioRef.current) { typingAudioRef.current.pause(); typingAudioRef.current = null; }
           } catch (e) { /* ignore cleanup errors */ }
         };
       }, []);
@@ -193,23 +175,6 @@
         });
       };
 
-      // Typing audio control
-      const startTypingAudio = () => {
-        const a = typingAudioRef.current;
-        if (!a) return;
-        try { a.currentTime = 0; a.play().catch(() => {}); } catch (e) {}
-        // fade in to ~30% over 300ms
-        fadeAudio(a, 0.3, 300, typingFadeIntervalRef);
-      };
-
-      const stopTypingAudio = () => {
-        const a = typingAudioRef.current;
-        if (!a) return;
-        fadeAudio(a, 0, 300, typingFadeIntervalRef, () => {
-          try { a.pause(); a.currentTime = 0; } catch (e) {}
-        });
-      };
-
       const handleInitiate = () => {
         // stop hover audio if playing and play power-on audio
         stopHoverAudio();
@@ -227,6 +192,8 @@
         }, 1800);
         setTimeout(() => {
           setInitiated(true);
+          // Start typing audio when page transitions (user interaction context is maintained)
+          startTypingAudio();
         }, 2800);
       };
 
