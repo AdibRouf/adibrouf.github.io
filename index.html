@@ -39,18 +39,28 @@
     );
     
     function Portfolio() {
-  const [initiated, setInitiated] = React.useState(false);
+      const [initiated, setInitiated] = React.useState(false);
       const [circuitExpanding, setCircuitExpanding] = React.useState(false);
       const [stageDrop, setStageDrop] = React.useState(false);
       const [typedText, setTypedText] = React.useState('');
       const [currentProject, setCurrentProject] = React.useState(0);
       const [slideDirection, setSlideDirection] = React.useState('');
-  // Audio refs: hover sound and power-on sound
-  const hoverAudioRef = React.useRef(null);
-  const powerAudioRef = React.useRef(null);
-  const hoverFadeIntervalRef = React.useRef(null);
-  const powerFadeIntervalRef = React.useRef(null);
+      const [currentPortrait, setCurrentPortrait] = React.useState(0);
+      
+      // Audio refs: hover sound and power-on sound
+      const hoverAudioRef = React.useRef(null);
+      const powerAudioRef = React.useRef(null);
+      const hoverFadeIntervalRef = React.useRef(null);
+      const powerFadeIntervalRef = React.useRef(null);
+      
       const fullText = "Hi! I'm Adib Rouf, a student developing the tools of tomorrow.";
+      
+      const portraits = [
+        "portraits/portrait1.jpg",
+        "portraits/portrait2.jpg",
+        "portraits/portrait3.jpg",
+        "portraits/portrait4.jpg"
+      ];
       
       const projects = [
         {
@@ -90,12 +100,22 @@
         }
       }, [typedText, initiated]);
 
+      // Rotate portraits every 3 seconds
+      React.useEffect(() => {
+        if (initiated) {
+          const interval = setInterval(() => {
+            setCurrentPortrait((prev) => (prev + 1) % portraits.length);
+          }, 3000);
+          return () => clearInterval(interval);
+        }
+      }, [initiated]);
+
       // Initialize audio elements once
       React.useEffect(() => {
-  // hover: looped, start at 0 volume
-  hoverAudioRef.current = new Audio('mp3s/hover.mp3');
-  hoverAudioRef.current.loop = true;
-  hoverAudioRef.current.volume = 0;
+        // hover: looped, start at 0 volume
+        hoverAudioRef.current = new Audio('mp3s/hover.mp3');
+        hoverAudioRef.current.loop = true;
+        hoverAudioRef.current.volume = 0;
 
         // power-on: single play
         powerAudioRef.current = new Audio('mp3s/poweron.mp3');
@@ -136,8 +156,12 @@
       const playHoverAudio = () => {
         const a = hoverAudioRef.current;
         if (!a) return;
-        // attempt play (may be blocked until user interacts); swallow promise rejection
-        try { a.currentTime = 0; a.play().catch(() => {}); } catch (e) {}
+        // Start from beginning and play (set volume to 0 first, then fade in)
+        try { 
+          a.currentTime = 0;
+          a.volume = 0;
+          a.play().catch(() => {}); 
+        } catch (e) {}
         // fade in to 40% over 400ms
         fadeAudio(a, 0.4, 400, hoverFadeIntervalRef);
       };
@@ -364,6 +388,50 @@
                     >
                       <path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
                     </svg>
+                  </div>
+                </div>
+              </section>
+
+              <section className="min-h-screen flex items-center justify-center py-20 px-4 relative">
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/60 to-transparent"></div>
+                
+                <div className="relative z-10 max-w-6xl w-full">
+                  <h2 className="text-5xl font-light text-slate-800 mb-16 text-center tracking-tight">
+                    Professional Overview
+                  </h2>
+                  
+                  <div className="flex items-center gap-12 bg-white/70 backdrop-blur-sm rounded-2xl shadow-2xl p-12 border border-slate-200/50">
+                    <div className="flex-shrink-0">
+                      <div className="relative w-64 h-64 rounded-full overflow-hidden border-4 border-slate-200 shadow-xl">
+                        {portraits.map((portrait, idx) => (
+                          <img
+                            key={idx}
+                            src={portrait}
+                            alt={`Portrait ${idx + 1}`}
+                            className="absolute inset-0 w-full h-full object-cover transition-opacity duration-1000"
+                            style={{
+                              opacity: idx === currentPortrait ? 1 : 0,
+                            }}
+                          />
+                        ))}
+                        <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-transparent pointer-events-none"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex-1">
+                      <h3 className="text-3xl font-light text-slate-800 mb-6 tracking-tight">
+                        About Me
+                      </h3>
+                      <p className="text-lg text-slate-600 font-light leading-relaxed mb-4">
+                        I'm passionate about leveraging artificial intelligence and machine learning to solve complex problems and uncover meaningful insights from data. My work focuses on developing intelligent systems that can learn, adapt, and make informed decisions.
+                      </p>
+                      <p className="text-lg text-slate-600 font-light leading-relaxed mb-4">
+                        With a keen eye for patterns and trends, I specialize in data analysis and predictive modeling. I believe that data tells a story, and my goal is to extract actionable intelligence that drives innovation and creates real-world impact.
+                      </p>
+                      <p className="text-lg text-slate-600 font-light leading-relaxed">
+                        From building explainable AI systems for autonomous vehicles to creating data aggregation platforms, I'm committed to pushing the boundaries of what's possible at the intersection of technology and intelligence.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </section>
