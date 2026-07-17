@@ -28,6 +28,7 @@
       --icon-hover: #eeeae3;
       --toggle-bg: rgba(255, 255, 255, 0.045);
       --toggle-line: rgba(255, 255, 255, 0.11);
+      --header-bg: rgba(5, 5, 5, 0.76);
       --max-width: 1240px;
     }
 
@@ -48,6 +49,7 @@
       --icon-hover: #111111;
       --toggle-bg: rgba(255, 255, 255, 0.42);
       --toggle-line: rgba(0, 0, 0, 0.12);
+      --header-bg: rgba(239, 237, 232, 0.78);
     }
 
     * {
@@ -56,6 +58,12 @@
 
     html {
       scroll-behavior: smooth;
+      background-color: var(--bg);
+      color-scheme: dark;
+    }
+
+    html[data-theme="light"] {
+      color-scheme: light;
     }
 
     body {
@@ -122,6 +130,11 @@
       inset: 0 0 auto;
       z-index: 100;
       pointer-events: none;
+      border-bottom: 1px solid var(--line);
+      background: var(--header-bg);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+      backdrop-filter: blur(18px) saturate(130%);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
     }
 
     .nav {
@@ -545,7 +558,12 @@
     .work-arrow {
       color: var(--faint);
       font-size: 1.2rem;
+      font-family: Arial, sans-serif;
       transition: color 220ms ease, transform 260ms ease;
+    }
+
+    .work-arrow::before {
+      content: "\2197\FE0E";
     }
 
     .work-item:hover .work-arrow {
@@ -803,7 +821,25 @@
       }
     }
 
+    @media (min-width: 1021px) {
+      .portrait-main {
+        right: 10%;
+      }
+
+      .portrait-secondary {
+        left: -5%;
+      }
+
+      .portrait-stage::before {
+        right: 1%;
+      }
+    }
+
     @media (max-width: 720px) {
+      body::before {
+        display: none;
+      }
+
       .shell {
         width: min(calc(100% - 28px), var(--max-width));
       }
@@ -1030,7 +1066,7 @@
               FastAPI, asynchronous jobs, and dynamic request batching that improved
               inference throughput by <strong>88%</strong> under concurrent load.
             </p>
-            <span class="work-arrow" aria-hidden="true">↗</span>
+            <span class="work-arrow" aria-hidden="true"></span>
           </a>
 
           <a class="work-item reveal" href="#resume" aria-label="Read about Travelers data engineering work">
@@ -1039,7 +1075,7 @@
               Rebuilt a legacy internal workflow in Python and SQL across
               <strong>200,000+ records</strong> and <strong>8,500+ groups</strong>.
             </p>
-            <span class="work-arrow" aria-hidden="true">↗</span>
+            <span class="work-arrow" aria-hidden="true"></span>
           </a>
 
           <a class="work-item reveal" href="#resume" aria-label="Read about XAI4AV research">
@@ -1048,7 +1084,7 @@
               A full-stack ML pipeline connecting video uploads, saliency data,
               Supabase, HPC inference, and model explanation results.
             </p>
-            <span class="work-arrow" aria-hidden="true">↗</span>
+            <span class="work-arrow" aria-hidden="true"></span>
           </a>
 
           <a class="work-item reveal" href="#resume" aria-label="Read about data aggregation platform">
@@ -1057,7 +1093,7 @@
               Processed <strong>28,900+ XML files</strong> into Snowflake and improved
               query performance by <strong>30%</strong>.
             </p>
-            <span class="work-arrow" aria-hidden="true">↗</span>
+            <span class="work-arrow" aria-hidden="true"></span>
           </a>
         </div>
       </div>
@@ -1067,7 +1103,7 @@
       <div class="shell">
         <div class="resume-head reveal">
           <h2>Resume</h2>
-          <a class="text-link" href="Adib_Rouf_Resume.pdf" target="_blank" rel="noreferrer">
+          <a class="text-link" href="resume/resumetest.pdf" target="_blank" rel="noreferrer">
             Open PDF <span aria-hidden="true">↗</span>
           </a>
         </div>
