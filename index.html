@@ -8,6 +8,7 @@
     content="Adib Rouf — computer science student, data engineer, and software builder."
   />
   <title>Adib Rouf</title>
+  <link rel="icon" type="image/png" href="portraits/favicon.png" />
 
   <style>
     :root {
@@ -445,62 +446,11 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0;
-      transition: opacity 420ms ease, transform 850ms cubic-bezier(0.2,0.8,0.2,1);
+      transition: transform 850ms cubic-bezier(0.2,0.8,0.2,1);
     }
 
-    .portrait-frame.is-loaded img {
-      opacity: 1;
-    }
-
-    .portrait-frame.is-loaded:hover img {
+    .portrait-frame:hover img {
       transform: scale(1.035);
-    }
-
-    .portrait-placeholder {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      color: var(--faint);
-      text-align: center;
-      font-size: 0.68rem;
-      font-weight: 650;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      transition: opacity 300ms ease;
-    }
-
-    .portrait-placeholder::before {
-      position: absolute;
-      top: 31%;
-      width: 25%;
-      aspect-ratio: 1;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      content: "";
-      background: rgba(255,255,255,0.02);
-    }
-
-    .portrait-placeholder::after {
-      position: absolute;
-      bottom: 15%;
-      width: 50%;
-      height: 32%;
-      border: 1px solid var(--line);
-      border-radius: 50% 50% 18% 18%;
-      content: "";
-      background: rgba(255,255,255,0.018);
-    }
-
-    .portrait-placeholder span {
-      position: absolute;
-      bottom: 7%;
-      z-index: 2;
-    }
-
-    .portrait-frame.is-loaded .portrait-placeholder {
-      opacity: 0;
     }
 
     @keyframes floatShape {
@@ -1037,19 +987,25 @@
         </div>
 
         <div class="portrait-stage reveal" aria-label="Portrait gallery">
-          <!-- Replace portrait-main.jpg and portrait-detail.jpg with your own photos. -->
-          <figure class="portrait-frame portrait-main" data-portrait>
-            <img src="portrait-main.jpg" alt="Portrait of Adib Rouf" />
-            <div class="portrait-placeholder" aria-hidden="true">
-              <span>Add portrait-main.jpg</span>
-            </div>
+          <figure class="portrait-frame portrait-main">
+            <img
+              src="portraits/portrait2-web.png"
+              width="900"
+              height="1200"
+              alt="Portrait of Adib Rouf"
+              fetchpriority="high"
+              decoding="async"
+            />
           </figure>
 
-          <figure class="portrait-frame portrait-secondary" data-portrait>
-            <img src="portrait-detail.jpg" alt="Second portrait of Adib Rouf" />
-            <div class="portrait-placeholder" aria-hidden="true">
-              <span>Add portrait-detail.jpg</span>
-            </div>
+          <figure class="portrait-frame portrait-secondary">
+            <img
+              src="portraits/portrait4-web.png"
+              width="1000"
+              height="750"
+              alt="Childhood portrait of Adib Rouf"
+              decoding="async"
+            />
           </figure>
         </div>
       </div>
@@ -1272,18 +1228,6 @@
 
     toggle.addEventListener("click", () => {
       setTheme(root.dataset.theme === "dark" ? "light" : "dark");
-    });
-
-    document.querySelectorAll("[data-portrait]").forEach((frame) => {
-      const image = frame.querySelector("img");
-      if (!image) return;
-
-      const markLoaded = () => frame.classList.add("is-loaded");
-      if (image.complete && image.naturalWidth > 0) {
-        markLoaded();
-      } else {
-        image.addEventListener("load", markLoaded, { once: true });
-      }
     });
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
