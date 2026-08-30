@@ -80,20 +80,16 @@
 
     .hero {
       position: relative;
-      min-height: 100vh;
+      min-height: 100svh;
       display: flex;
       align-items: center;
-      padding: 122px 0 84px;
+      padding: 56px 0;
     }
 
     .hero-grid {
       position: relative;
       z-index: 4;
-      display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(330px, 0.65fr);
-      align-items: center;
-      gap: clamp(44px, 7vw, 110px);
-      width: 100%;
+      width: min(100%, 780px);
     }
 
     .status-line {
@@ -221,89 +217,6 @@
     .text-link:focus-visible {
       color: var(--text);
       gap: 15px;
-    }
-
-    .portrait-stage {
-      position: relative;
-      min-height: 560px;
-      perspective: 1100px;
-    }
-
-    .portrait-stage::before {
-      content: none;
-    }
-
-    .portrait-frame {
-      position: absolute;
-      overflow: hidden;
-      margin: 0;
-      border: 1px solid var(--line-strong);
-      background: #000;
-      transition:
-        transform 520ms cubic-bezier(0.2,0.8,0.2,1),
-        border-color 260ms ease;
-    }
-
-    .portrait-frame:hover {
-      z-index: 8;
-      border-color: var(--line-strong);
-    }
-
-    .portrait-main {
-      top: 5%;
-      right: 3%;
-      width: min(76%, 350px);
-      aspect-ratio: 0.73;
-      border-radius: 30px 82px 34px 72px;
-      transform: rotate(3deg);
-      animation: portraitFloatA 7.5s ease-in-out infinite;
-    }
-
-    .portrait-main:hover {
-      transform: translateY(-12px) rotate(1deg) scale(1.012);
-    }
-
-    .portrait-secondary {
-      left: 2%;
-      bottom: 3%;
-      z-index: 5;
-      width: min(48%, 220px);
-      aspect-ratio: 0.82;
-      border-radius: 62px 28px 52px 24px;
-      transform: rotate(-8deg);
-      animation: portraitFloatB 6.7s ease-in-out infinite;
-    }
-
-    .portrait-secondary:hover {
-      transform: translateY(-12px) rotate(-4deg) scale(1.018);
-    }
-
-    .portrait-frame img {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 850ms cubic-bezier(0.2,0.8,0.2,1);
-    }
-
-    .portrait-frame:hover img {
-      transform: scale(1.035);
-    }
-
-    @keyframes floatShape {
-      0%, 100% { transform: translate3d(0,0,0) rotate(8deg); }
-      50% { transform: translate3d(-10px,-18px,0) rotate(4deg); }
-    }
-
-    @keyframes portraitFloatA {
-      0%, 100% { transform: rotate(3deg) translateY(0); }
-      50% { transform: rotate(1deg) translateY(-10px); }
-    }
-
-    @keyframes portraitFloatB {
-      0%, 100% { transform: rotate(-8deg) translateY(0); }
-      50% { transform: rotate(-5deg) translateY(-12px); }
     }
 
     .content-section {
@@ -623,15 +536,6 @@
         grid-template-columns: 1fr;
       }
 
-      .hero-grid {
-        gap: 62px;
-      }
-
-      .portrait-stage {
-        width: min(100%, 520px);
-        min-height: 520px;
-      }
-
       .work-item {
         grid-template-columns: minmax(0, 1fr) 34px;
       }
@@ -659,28 +563,14 @@
       }
     }
 
-    @media (min-width: 1021px) {
-      .portrait-main {
-        right: 10%;
-      }
-
-      .portrait-secondary {
-        left: -5%;
-      }
-
-      .portrait-stage::before {
-        right: 1%;
-      }
-    }
-
     @media (max-width: 720px) {
       .shell {
-        width: min(calc(100% - 28px), var(--max-width));
+        width: min(calc(100% - 48px), var(--max-width));
       }
 
       .hero {
-        min-height: auto;
-        padding: 116px 0 80px;
+        min-height: 100svh;
+        padding: 40px 0;
       }
 
       .name {
@@ -692,18 +582,6 @@
       .hero-meta {
         align-items: flex-start;
         flex-direction: column;
-      }
-
-      .portrait-stage {
-        min-height: 430px;
-      }
-
-      .portrait-main {
-        width: 75%;
-      }
-
-      .portrait-secondary {
-        width: 46%;
       }
 
       .content-section {
@@ -752,9 +630,15 @@
     a,
     li,
     span {
-      font-size: 1rem !important;
+      font-size: 1.075rem !important;
       letter-spacing: 0 !important;
       text-transform: lowercase !important;
+    }
+
+    .intro {
+      max-width: 680px;
+      font-size: 1.15rem !important;
+      line-height: 1.65;
     }
   </style>
 </head>
@@ -814,28 +698,6 @@
           </div>
         </div>
 
-        <div class="portrait-stage reveal" aria-label="Portrait gallery">
-          <figure class="portrait-frame portrait-main">
-            <img
-              src="portraits/portrait2-web.png"
-              width="900"
-              height="1200"
-              alt="Portrait of Adib Rouf"
-              fetchpriority="high"
-              decoding="async"
-            />
-          </figure>
-
-          <figure class="portrait-frame portrait-secondary">
-            <img
-              src="portraits/portrait4-web.png"
-              width="1000"
-              height="750"
-              alt="Childhood portrait of Adib Rouf"
-              decoding="async"
-            />
-          </figure>
-        </div>
       </div>
     </section>
 
