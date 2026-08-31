@@ -12,17 +12,17 @@
 
   <style>
     :root {
-      --bg: #000;
-      --text: #fff;
-      --text-soft: #fff;
-      --muted: #fff;
-      --faint: #fff;
-      --line: rgba(255, 255, 255, 0.09);
-      --line-strong: rgba(255, 255, 255, 0.16);
+      --bg: #f3ead7;
+      --text: #000;
+      --text-soft: #000;
+      --muted: #000;
+      --faint: #000;
+      --line: rgba(0, 0, 0, 0.12);
+      --line-strong: rgba(0, 0, 0, 0.24);
       --surface: transparent;
-      --icon: #fff;
-      --icon-hover: #fff;
-      --max-width: 1240px;
+      --icon: #000;
+      --icon-hover: #000;
+      --max-width: 1440px;
     }
 
     * {
@@ -32,14 +32,14 @@
     html {
       scroll-behavior: smooth;
       background-color: var(--bg);
-      color-scheme: dark;
+      color-scheme: light;
     }
 
     body {
       margin: 0;
       min-width: 320px;
       color: var(--text);
-      background: #000;
+      background: var(--bg);
       font-family:
         "Avenir Next",
         Avenir,
@@ -73,8 +73,9 @@
     }
 
     .shell {
-      width: min(calc(100% - 48px), var(--max-width));
+      width: min(100%, var(--max-width));
       margin-inline: auto;
+      padding-inline: clamp(20px, 4vw, 56px);
     }
 
 
@@ -89,7 +90,7 @@
     .hero-grid {
       position: relative;
       z-index: 4;
-      width: min(100%, 780px);
+      width: min(100%, 1100px);
     }
 
     .status-line {
@@ -116,7 +117,7 @@
       height: 7px;
       border-radius: 50%;
       content: "";
-      background: #fff;
+      background: #000;
     }
 
     .status-divider {
@@ -564,10 +565,6 @@
     }
 
     @media (max-width: 720px) {
-      .shell {
-        width: min(calc(100% - 48px), var(--max-width));
-      }
-
       .hero {
         min-height: 100svh;
         padding: 40px 0;
@@ -636,9 +633,26 @@
     }
 
     .intro {
-      max-width: 680px;
+      max-width: 900px;
       font-size: 1.15rem !important;
       line-height: 1.65;
+    }
+
+    @media (min-width: 1021px) {
+      body,
+      h1,
+      h2,
+      h3,
+      p,
+      a,
+      li,
+      span {
+        font-size: 1.15rem !important;
+      }
+
+      .intro {
+        font-size: 1.3rem !important;
+      }
     }
   </style>
 </head>
