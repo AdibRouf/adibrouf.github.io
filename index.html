@@ -90,7 +90,7 @@
     .hero-grid {
       position: relative;
       z-index: 4;
-      width: min(100%, 1100px);
+      width: min(100%, 1250px);
     }
 
     .status-line {
@@ -647,11 +647,13 @@
       a,
       li,
       span {
-        font-size: 1.15rem !important;
+        font-size: 1.35rem !important;
       }
 
       .intro {
-        font-size: 1.3rem !important;
+        max-width: 1100px;
+        font-size: 1.65rem !important;
+        line-height: 1.55;
       }
     }
   </style>
@@ -665,7 +667,7 @@
           <div class="status-line">
             <span>Computer Science at UConn</span>
             <span class="status-divider" aria-hidden="true">/</span>
-            <span>Data Engineering at Travelers</span>
+            <span>Software and Data Engineering</span>
           </div>
 
           <h1 class="name">Adib Rouf</h1>
@@ -674,7 +676,7 @@
             I am a <strong>software and data engineer</strong> focused on building
             reliable systems, ML infrastructure, and products that make complex work
             easier to understand. I study Computer Science with an AI concentration at
-            UConn and currently work as a Data Engineering Intern at Travelers.
+            UConn and recently completed a Data Engineering internship at Travelers.
           </p>
 
           <div class="hero-meta">
@@ -741,7 +743,8 @@
             <h3 class="work-title">Enterprise Data Tooling</h3>
             <p class="work-meta">
               Rebuilt a legacy internal workflow in Python and SQL across
-              <strong>200,000+ records</strong> and <strong>8,500+ groups</strong>.
+              <strong>200,000+ records</strong> and <strong>8,500+ groups</strong>,
+              increasing processing speed by <strong>500%</strong>.
             </p>
             <span class="work-arrow" aria-hidden="true"></span>
           </a>
@@ -782,14 +785,14 @@
               <h3 class="resume-label" id="experience-heading">Experience</h3>
 
               <article class="resume-entry">
-                <div class="resume-date">May 2026 - Present</div>
+                <div class="resume-date">May 2026 - August 2026</div>
                 <div>
                   <h3>Data Engineering Intern</h3>
-                  <p class="resume-company">Travelers Insurance · Hartford, Connecticut</p>
+                  <p class="resume-company">The Travelers Companies · Hartford, Connecticut</p>
                   <ul>
-                    <li>Rebuilt a legacy VB Script workflow in Python and SQL across 200,000+ user-role records and 8,500+ groups.</li>
-                    <li>Built parameterized cross-domain membership tooling for production, EU, and administrative environments.</li>
-                    <li>Classified access by NTIC ID and person-versus-machine type to support internal access reviews.</li>
+                    <li>Modernized a legacy Active Directory workflow in Python and SQL across 200,000+ records and 8,500+ groups, increasing processing speed by 500% through parallelization.</li>
+                    <li>Developed an AutoSys audit tool that traces executing accounts, ownership, employment status, and line of business to identify unmaintained jobs.</li>
+                    <li>Developed a server health dashboard for proactive infrastructure monitoring and early incident alerts.</li>
                   </ul>
                 </div>
               </article>
@@ -800,8 +803,9 @@
                   <h3>L'SPACE NPWEE Participant</h3>
                   <p class="resume-company">NASA · Remote</p>
                   <ul>
-                    <li>Evaluated a proposed spaceflight materials-testing protocol against mission-duration constraints.</li>
-                    <li>Structured technical assumptions and requirements that were adopted into the final proposal submission.</li>
+                    <li>Evaluated a proposed spaceflight materials-testing protocol against mission-duration constraints and translated findings into testable requirements.</li>
+                    <li>Authored technical assumptions and requirement specifications incorporated into NASA's final proposal.</li>
+                    <li>Collaborated across disciplines to align testing methods, mission constraints, and feasibility into a cohesive validation strategy.</li>
                   </ul>
                 </div>
               </article>
@@ -809,12 +813,12 @@
               <article class="resume-entry">
                 <div class="resume-date">Mar 2025 - Dec 2025</div>
                 <div>
-                  <h3>Undergraduate Research Intern</h3>
+                  <h3>Undergraduate Researcher</h3>
                   <p class="resume-company">University of Connecticut · XAI4AV</p>
                   <ul>
-                    <li>Built a full-stack ML pipeline for video and saliency uploads, HPC-based LLM inference, and decision heatmaps.</li>
-                    <li>Designed an asynchronous pending-to-processing-to-complete status pipeline across the frontend, Supabase, and HPC backend.</li>
-                    <li>Shipped upload, queuing, and side-by-side result interfaces end to end.</li>
+                    <li>Engineered a full-stack ML pipeline for video and saliency uploads, HPC-based LLM inference, and model decision heatmaps.</li>
+                    <li>Designed an asynchronous status pipeline across the frontend, Supabase, and HPC backend for reliable end-to-end job tracking.</li>
+                    <li>Delivered upload, queueing, and results interfaces that let researchers compare AI explanations with original video side by side.</li>
                   </ul>
                 </div>
               </article>
@@ -829,8 +833,9 @@
                   <h3>ML Serving Platform</h3>
                   <p class="resume-company">FastAPI · Async job queue · Dynamic batching</p>
                   <ul>
-                    <li>Decoupled request submission from model execution through polling-based status tracking.</li>
+                    <li>Built a FastAPI inference platform with asynchronous job queues and non-blocking, polling-based status tracking.</li>
                     <li>Improved inference throughput by 88%, from 56 to 106 requests per second, under concurrent load.</li>
+                    <li>Separated API handling from model execution with a worker architecture that allows the inference layer to scale independently.</li>
                   </ul>
                 </div>
               </article>
@@ -841,8 +846,9 @@
                   <h3>Data Aggregation and Insights Platform</h3>
                   <p class="resume-company">Python · pandas · Snowflake</p>
                   <ul>
-                    <li>Processed 28,900+ XML documents into structured pandas DataFrames and loaded the cleaned data into Snowflake.</li>
-                    <li>Improved query performance by 30% through data-processing and record-preparation optimizations.</li>
+                    <li>Built a Python pipeline that transformed 28,900+ XML documents into structured pandas DataFrames.</li>
+                    <li>Automated cleaned-data ingestion into Snowflake for repeatable storage, querying, and analysis.</li>
+                    <li>Improved Snowflake query performance by 30% by restructuring processing logic and record preparation.</li>
                   </ul>
                 </div>
               </article>
@@ -876,10 +882,10 @@
               <div class="skill-line" aria-label="Frameworks and tools">
                 <span class="skill-chip">Snowflake</span>
                 <span class="skill-chip">Supabase</span>
+                <span class="skill-chip">FastAPI</span>
                 <span class="skill-chip">Flask</span>
                 <span class="skill-chip">React</span>
                 <span class="skill-chip">GitHub</span>
-                <span class="skill-chip">AWS</span>
                 <span class="skill-chip">Azure</span>
               </div>
             </section>
